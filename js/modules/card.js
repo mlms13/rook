@@ -19,6 +19,7 @@ define(function () {
             }
 
             return $card.addClass(this.suit)
+                .attr('data-card-suit', this.suit)
                 .attr('data-card-face', this.face)
                 .append($('<span class="rook-card-inner">' + this.face + '</span>'));
         }
