@@ -9,16 +9,16 @@
     box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
     box-sizing: border-box;
     display: inline-block;
+    font: small-caps 18px Ultra, serif;
     height: 240px;
     padding: 60px 30px;
     position: relative;
+    user-select: none;
     width: 180px;
 
     &:before,
     &:after {
         content: attr(data-card-face) " " attr(data-card-suit);
-        font: 20px serif;
-        font-variant: small-caps;
         position: absolute;
     }
     &:before {
@@ -47,7 +47,7 @@
 .rook-card-inner {
     border: 1px solid;
     display: block;
-    font-size: 88px;
+    font-size: 82px;
     line-height: 120px; // to vertically center the text
     height: 100%;
     text-align: center;
