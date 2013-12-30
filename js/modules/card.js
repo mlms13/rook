@@ -3,10 +3,11 @@ define(function () {
         power: 0,
         worth: 0,
         suit: undefined,
-        create: function (suit, power, worth) {
-            this.suit = suit;
-            this.worth = worth;
-            this.power = power;
+        create: function (suit, power, worth, face) {
+            this.suit = suit; // red, green, yellow, or black
+            this.worth = worth; // how many points the cord is worth when won
+            this.power = power; // the card's strength vs other cards
+            this.face = face; // the number show on the card (usually the same as the power)
         },
         render: function () {
             // create and return a jQuery object representing the card
@@ -18,8 +19,8 @@ define(function () {
             }
 
             return $card.addClass(this.suit)
-                .attr('data-card-power', this.power)
-                .append($('<span class="rook-card-inner">' + this.power + '</span>'));
+                .attr('data-card-face', this.face)
+                .append($('<span class="rook-card-inner">' + this.face + '</span>'));
         }
     };
 });
