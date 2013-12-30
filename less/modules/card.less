@@ -1,0 +1,49 @@
+@red: #e33;
+@green: #2d5;
+@yellow: #ee2;
+@black: #111;
+
+.rook-card {
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+    display: inline-block;
+    height: 240px;
+    padding: 30px;
+    position: relative;
+    width: 180px;
+
+    &.red {
+        color: @red;
+    }
+    &.green {
+        color: @green;
+    }
+    &.yellow {
+        color: @yellow;
+    }
+    &.black {
+        color: @black;
+    }
+}
+.rook-card-inner {
+    border: 1px solid;
+    display: block;
+    font: bold 56px/180px serif; // 180px is the remainder of the height for vertical centering
+    height: 100%;
+    text-align: center;
+
+    .red & {
+        border-color: lighten(@red, 30%);
+    }
+    .green & {
+        border-color: lighten(@green, 30%);
+    }
+    .yellow & {
+        border-color: lighten(@yellow, 30%);
+    }
+    .black & {
+        border-color: lighten(@black, 30%);
+    }
+}
