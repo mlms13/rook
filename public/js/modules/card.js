@@ -1,4 +1,4 @@
-define(function () {
+define(['jquery'], function ($) {
     // a private template for a new card object
     function Card (suit, power, worth, face) {
         this.suit = suit; // red, green, yellow, or black
