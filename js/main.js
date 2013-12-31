@@ -1,7 +1,10 @@
-require(['modules/suit'], function (suit) {
-    var green = suit.getCardsInSuit('green');
+require(['modules/deck'], function (deck) {
+    var cards;
 
-    green.forEach(function (card) {
+    deck.shuffle().deal();
+    cards = deck.hands[0];
+
+    cards.forEach(function (card) {
         $('body').prepend(card.render());
     });
 });
