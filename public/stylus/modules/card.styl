@@ -1,7 +1,7 @@
-@red: #e33;
-@green: #1c7;
-@yellow: #ec0;
-@black: #111;
+$red: #e33;
+$green: #1c7;
+$yellow: #ec0;
+$black: #111;
 
 .rook-card {
     background: #fafafa;
@@ -32,16 +32,16 @@
     }
 
     &.red {
-        color: @red;
+        color: $red;
     }
     &.green {
-        color: @green;
+        color: $green;
     }
     &.yellow {
-        color: @yellow;
+        color: $yellow;
     }
     &.black {
-        color: @black;
+        color: $black;
     }
 }
 .rook-card-inner {
@@ -53,15 +53,15 @@
     text-align: center;
 
     .red & {
-        border-color: lighten(@red, 30%);
+        border-color: lighten($red, 30%);
     }
     .green & {
-        border-color: lighten(@green, 30%);
+        border-color: lighten($green, 30%);
     }
     .yellow & {
-        border-color: lighten(@yellow, 30%);
+        border-color: lighten($yellow, 30%);
     }
     .black & {
-        border-color: lighten(@black, 30%);
+        border-color: lighten($black, 30%);
     }
 }
