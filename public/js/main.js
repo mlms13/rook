@@ -5,19 +5,20 @@ require.config({
     }
 });
 
-require(['jquery', 'socketio', 'modules/deck'], function ($, io, deck) {
-    var cards;
+require(['jquery', 'socketio'], function ($, io) {
+    // connect to the server
+    var $container = $('body'),
+        $username = $('<input placeholder="Username" />').appendTo($container),
+        $join = $('<a class="button" href="#">Join Random Game</a>').appendTo($container),
+        socket = io.connect('http://localhost:3000');
 
-    deck.shuffle().deal();
-    cards = deck.hands[0];
-
-    cards.forEach(function (card) {
-        $('body').prepend(card.render());
+    // let the server know what's up
+    $join.on('click', function () {
+        socket.emit('join game', {username: $username.val()});
     });
 
-    var socket = io.connect('http://localhost:3000');
-    socket.on('news', function (data) {
+    // handle the dealing of cards
+    socket.on('start game', function (data) {
         console.log(data);
-        socket.emit('my other event', { my: 'data' });
     });
 });
