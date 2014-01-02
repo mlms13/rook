@@ -42,7 +42,26 @@ server.listen(app.get('port'), function(){
 });
 
 io.sockets.on('connection', function (socket) {
+    console.log('A user connected. Listening for them to join a game...');
     socket.on('join game', function (data) {
-        console.log(data.username + ' joined the game.');
+        var members;
+
+        // add this user to the lobby and let everyone else know
+        console.log(data.username, 'has joined the lobby.');
+        socket.join('lobby');
+        members = io.sockets.clients('lobby');
+
+        // if the lobby is now full, start a game and clear the lobby
+        console.log('length of members:', members.length);
+        if (members.length === 4) {
+            console.log('The lobby is now full. Starting a game.');
+            io.sockets.in('lobby').emit('start game', {});
+        } else {
+            // otherwise, let everyone know the status of the lobby
+            io.sockets.in('lobby').emit('lobby changed', {
+                name: data.username,
+                count: members.length
+            });
+        }
     });
 });
