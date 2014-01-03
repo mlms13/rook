@@ -23,8 +23,8 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(require('stylus').middleware({
-    src: path.join(__dirname, 'public/stylus'),
-    dest: path.join(__dirname, 'public/css')
+    src: path.join(__dirname, 'stylus'),
+    dest: path.join(__dirname, 'public')
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
