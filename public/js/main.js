@@ -5,12 +5,12 @@ require.config({
     }
 });
 
-require(['jquery', 'socketio'], function ($, io) {
+require(['jquery', 'modules/socket'], function ($, sio) {
     // connect to the server
     var $container = $('body'),
         $username = $('#join-lobby-username'),
         $form = $('#join-lobby-form'),
-        socket = io.connect('http://localhost:3000');
+        socket = sio.socket;
 
     // let the server know we're joining
     $form.on('submit', function () {
