@@ -8,13 +8,14 @@ require.config({
 require(['jquery', 'socketio'], function ($, io) {
     // connect to the server
     var $container = $('body'),
-        $username = $('<input placeholder="Username" />').appendTo($container),
-        $join = $('<a class="button" href="#">Join Random Game</a>').appendTo($container),
+        $username = $('#join-lobby-username'),
+        $form = $('#join-lobby-form'),
         socket = io.connect('http://localhost:3000');
 
     // let the server know we're joining
-    $join.on('click', function () {
+    $form.on('submit', function () {
         socket.emit('join game', {username: $username.val()});
+        return false; // prevent the form from submitting
     });
 
     socket.on('lobby changed', function (data) {

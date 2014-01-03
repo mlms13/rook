@@ -2,4 +2,13 @@ extends layout
 
 block content
   h1= title
+  .container
+    .lobby-tile
+        form#join-lobby-form(role="form",action="#", method="post")
+            label.lobby-tile-title(for="join-lobby-username") Random Game
+            i.rookicon.icon-dice.lobby-tile-icon
+            .form-group
+                input#join-lobby-username.form-control(placeholder="Username")
+            .form-group
+                input#join-lobby-button.btn.btn-success.btn-block(type="submit",value="Join")
   script(src="js/require.js", data-main="js/main.js")

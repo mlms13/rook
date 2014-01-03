@@ -5,6 +5,50 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Rookicons';
+  src: url("../fonts/Rookicons.eot");
+  src: url("../fonts/Rookicons.eot?#iefix") format('embedded-opentype'), url("../fonts/Rookicons.woff") format('woff'), url("../fonts/Rookicons.ttf") format('truetype'), url("../fonts/Rookicons.svg#Rookicons") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.rookicon {
+  font-family: 'Rookicons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-dice:before {
+  content: "\e600";
+}
+body {
+  background: #eee;
+}
+.lobby-tile {
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+  max-width: 300px;
+  padding: 20px;
+  margin: 0 auto;
+}
+.lobby-tile-title {
+  display: block;
+  font-size: 30px;
+  text-align: center;
+}
+.lobby-tile-icon {
+  color: #777;
+  display: block;
+  font-size: 144px;
+  line-height: 1.2;
+  text-align: center;
+}
 .rook-card {
   background: #fafafa;
   border-radius: 12px;
