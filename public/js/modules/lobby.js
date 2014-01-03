@@ -1,4 +1,4 @@
-define(['modules/socket'], function (sio) {
+define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify) {
     var socket = sio.socket,
         lobby = {};
 
@@ -19,12 +19,13 @@ define(['modules/socket'], function (sio) {
         });
 
         socket.on('lobby changed', function (data) {
-            console.log(data.name, 'has joined, brining the number of members in the room to', data.count);
+            notify.info({message: data.name + ' has joined this game.'});
+            console.log('There are now this many people in the lobby: ', data.count);
         });
 
         // handle the dealing of cards
         socket.on('start game', function (data) {
-            console.log('The room is full, and a game is about to begin.');
+            notify.success('The room is full, and a game is about to begin.');
         });
     };
 
