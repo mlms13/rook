@@ -39,20 +39,23 @@ body {
   margin: 40px auto 0;
   max-width: 800px;
 }
-.lobby-tile {
+.tile {
   background: #fff;
   border-radius: 3px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   max-width: 300px;
   padding: 20px;
-  margin: 0 auto;
 }
-.lobby-tile-title {
+.tile.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+.tile-title {
   display: block;
   font-size: 30px;
   text-align: center;
 }
-.lobby-tile-icon {
+.tile-icon {
   color: #777;
   display: block;
   font-size: 144px;

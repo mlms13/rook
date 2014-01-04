@@ -3,10 +3,10 @@ extends layout
 block content
   h1= title
   .container
-    .lobby-tile
-        form#join-lobby-form(role="form",action="#", method="post")
-            label.lobby-tile-title(for="join-lobby-username") Random Game
-            i.rookicon.icon-dice.lobby-tile-icon
+    .tile.centered
+        form#join-lobby-form.fade.in(role="form",action="#", method="post")
+            label.tile-title(for="join-lobby-username") Random Game
+            i.rookicon.icon-dice.tile-icon
             .form-group
                 input#join-lobby-username.form-control(placeholder="Your Name")
             .form-group
