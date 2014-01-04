@@ -34,7 +34,8 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         socket.emit('join game', {username: $username.val()});
 
         // when the client successfully joins the lobby, change the interface
-        $form.toggleClass('in out');
+        $username.trigger('blur'); // remove focus fromt he input
+        $form.toggleClass('in out'); // fade out the form
     };
 
     return lobby;
