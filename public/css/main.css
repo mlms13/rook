@@ -44,6 +44,8 @@ body {
   border-radius: 3px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   max-width: 300px;
+  min-height: 360px;
+  overflow: hidden;
   padding: 20px;
 }
 .tile.centered {
@@ -61,6 +63,11 @@ body {
   font-size: 144px;
   line-height: 1.2;
   text-align: center;
+}
+.lobby-form.out {
+  -webkit-transform: translateY(200px);
+  transform: translateY(200px);
+  transition: 0.25s;
 }
 .rook-card {
   background: #fafafa;
