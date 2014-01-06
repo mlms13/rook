@@ -59,7 +59,7 @@ io.sockets.on('connection', function (socket) {
         } else {
             // otherwise, let everyone know the status of the lobby
             io.sockets.in('lobby').emit('lobby changed', {
-                name: data.username,
+                added: {name: data.username, id: socket.id},
                 count: members.length
             });
         }
