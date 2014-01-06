@@ -66,5 +66,18 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         $('<li class="tile-list-item" data-userid="' + id + '">' + name + '</li>').appendTo($memberList);
     };
 
+    lobby.updateList = function (members) {
+        var i, len;
+
+        // Completely erase any existing list and add all members.
+        // This may be slightly slower, but it makes sure the list is always accurate,
+        // and it ensures a complete list is created, even if you're 3rd to join.
+        $memberList.empty();
+
+        for (i = 0, len = members.length; i < len; i += 1) {
+            $('<li class="tile-list-item" data-userid="' + members[i].id + '">' + members[i].name + '</li>').appendTo($memberList);
+        }
+    };
+
     return lobby;
 });
