@@ -41,14 +41,19 @@ server.listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
 
+var clientMemberList = []; // an array of members that will be passed to the client
+
 io.sockets.on('connection', function (socket) {
     console.log('A user connected. Listening for them to join a game...');
     socket.on('join game', function (data) {
         var members;
 
         // add this user to the lobby and let everyone else know
-        console.log(data.username, 'has joined the lobby.');
         socket.join('lobby');
+        clientMemberList.push({
+            name: data.username,
+            id: socket.id
+        });
         members = io.sockets.clients('lobby');
 
         // if the lobby is now full, start a game and clear the lobby
@@ -60,7 +65,8 @@ io.sockets.on('connection', function (socket) {
             // otherwise, let everyone know the status of the lobby
             io.sockets.in('lobby').emit('lobby changed', {
                 added: {name: data.username, id: socket.id},
-                count: members.length
+                count: members.length,
+                members: clientMemberList
             });
         }
     });

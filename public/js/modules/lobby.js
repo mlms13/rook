@@ -45,11 +45,10 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         });
 
         socket.on('lobby changed', function (data) {
-            if (data.added) {
-                lobby.addMember(data.added.name, data.added.id);
-            }
+            console.log('The lobby changed. Here is the new member list:');
+            console.log(data.members);
+            lobby.updateList(data.members);
             $progressBar.attr('aria-valuenow', data.count).css('width', (data.count / 4) * 100 + '%' );
-            console.log('There are now this many people in the lobby: ', data.count);
         });
 
         // handle the dealing of cards
@@ -84,7 +83,7 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         $memberList.empty();
 
         for (i = 0, len = members.length; i < len; i += 1) {
-            $('<li class="tile-list-item" data-userid="' + members[i].id + '">' + members[i].name + '</li>').appendTo($memberList);
+            lobby.addMember(members[i].name, members[i].id);
         }
     };
 
