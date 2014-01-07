@@ -4,15 +4,23 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         $tile = $form.parent(),
         $memberTile = [],
         $memberList = [],
+        $progressBar = [],
         lobby = {};
 
     function createMemberList() {
+        var progressContainer; // a local reference to the progress container
+
         // make sure the list doesn't already exist
         if ($memberTile.length > 0) { return; }
 
         $memberTile = $('<div class="fade"></div>')
                         .append($('<h1 class="tile-title">Waiting</h1>'))
                         .prependTo($tile);
+
+        // create a progress bar to track the number of members
+        $progressContainer = $('<div class="progress"></div>').appendTo($memberTile);
+        $progressBar = $('<div class="progress-bar" role="aria-progressbar" aria-valuemin="0" aria-valuemax="4"></div>')
+                        .appendTo($progressContainer);
 
         // store a separate reference to the <ul>
         $memberList = $('<ul class="tile-list"></ul>').appendTo($memberTile);
@@ -40,6 +48,7 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
             if (data.added) {
                 lobby.addMember(data.added.name, data.added.id);
             }
+            $progressBar.attr('aria-valuenow', data.count).css('width', (data.count / 4) * 100 + '%' );
             console.log('There are now this many people in the lobby: ', data.count);
         });
 
