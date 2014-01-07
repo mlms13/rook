@@ -44,12 +44,7 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
             lobby.join();
         });
 
-        socket.on('lobby changed', function (data) {
-            console.log('The lobby changed. Here is the new member list:');
-            console.log(data.members);
-            lobby.updateList(data.members);
-            $progressBar.attr('aria-valuenow', data.count).css('width', (data.count / 4) * 100 + '%' );
-        });
+        socket.on('lobby changed', lobby.update);
 
         // handle the dealing of cards
         socket.on('start game', function (data) {
@@ -74,7 +69,7 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         $('<li class="tile-list-item" data-userid="' + id + '">' + name + '</li>').appendTo($memberList);
     };
 
-    lobby.updateList = function (members) {
+    lobby.update = function (data) {
         var i, len;
 
         // Completely erase any existing list and add all members.
@@ -82,9 +77,11 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         // and it ensures a complete list is created, even if you're 3rd to join.
         $memberList.empty();
 
-        for (i = 0, len = members.length; i < len; i += 1) {
-            lobby.addMember(members[i].name, members[i].id);
+        for (i = 0, len = data.members.length; i < len; i += 1) {
+            lobby.addMember(data.members[i].name, data.members[i].id);
         }
+
+        $progressBar.attr('aria-valuenow', data.count).css('width', (data.count / 4) * 100 + '%' );
     };
 
     return lobby;
