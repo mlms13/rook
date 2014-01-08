@@ -45,29 +45,43 @@ var clientMemberList = []; // an array of members that will be passed to the cli
 
 io.sockets.on('connection', function (socket) {
     console.log('A user connected. Listening for them to join a game...');
-    socket.on('join game', function (data) {
-        var members;
 
+    socket.on('join game', function (data) {
         // add this user to the lobby and let everyone else know
         socket.join('lobby');
         clientMemberList.push({
             name: data.username,
             id: socket.id
         });
-        members = io.sockets.clients('lobby');
 
         // if the lobby is now full, start a game and clear the lobby
-        console.log('length of members:', members.length);
-        if (members.length === 4) {
+        if (io.sockets.clients('lobby').length === 4) {
             console.log('The lobby is now full. Starting a game.');
             io.sockets.in('lobby').emit('start game', {});
         } else {
             // otherwise, let everyone know the status of the lobby
             io.sockets.in('lobby').emit('lobby changed', {
                 added: {name: data.username, id: socket.id},
-                count: members.length,
                 members: clientMemberList
             });
         }
+    });
+
+    socket.on('disconnect', function () {
+        var i, len;
+
+        // remove the user from the lobby if they have joined
+        // no need to `.leave()` the room, but we should update the clientMemberList
+        for (i = 0, len = clientMemberList.length; i < len; i += 1) {
+            if (clientMemberList[i].id === socket.id) {
+                clientMemberList.splice(i, 1);
+                break; // assume there's only one instance of the client in the array. right?
+            }
+        }
+
+        io.sockets.in('lobby').emit('lobby changed', {
+            removed: {id: socket.id},
+            members: clientMemberList
+        })
     });
 });

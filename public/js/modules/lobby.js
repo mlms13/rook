@@ -81,7 +81,7 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
             lobby.addMember(data.members[i].name, data.members[i].id);
         }
 
-        $progressBar.attr('aria-valuenow', data.count).css('width', (data.count / 4) * 100 + '%' );
+        $progressBar.attr('aria-valuenow', data.members.length).css('width', (data.members.length / 4) * 100 + '%' );
     };
 
     return lobby;
