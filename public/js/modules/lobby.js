@@ -48,7 +48,7 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
 
         // handle the dealing of cards
         socket.on('start game', function (data) {
-            notify.success('The room is full, and a game is about to begin.');
+            notify.success({message: 'The room is full, and a game is about to begin.'});
         });
     };
 
