@@ -1,8 +1,5 @@
+// handle `GET` requests for the home page
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
+module.exports = function (req, res) {
   res.render('index', { title: 'Rook Game' });
 };

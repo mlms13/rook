@@ -1,18 +1,11 @@
+// import modules
+var express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    path = require('path'),
+    io = require('socket.io').listen(server);
 
-/**
- * Module dependencies.
- */
-
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
-var io = require('socket.io');
-
-var app = express(),
-    server = require('http').createServer(app);
-
-// all environments
+// middleware for all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,18 +21,17 @@ app.use(require('stylus').middleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
-if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
-}
-
-app.get('/', routes.index);
-
-io = io.listen(server);
-
-server.listen(app.get('port'), function(){
+// listen for server activity
+server.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+// set up routes
+var index = require('./routes/index');
+
+// handle http requests
+app.get('/', index);
+
 
 var clientMemberList = []; // an array of members that will be passed to the client
 
