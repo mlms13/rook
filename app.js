@@ -5,6 +5,9 @@ var express = require('express'),
     path = require('path'),
     io = require('socket.io').listen(server);
 
+// import rook-specific modules
+var lobby = require('./modules/lobby');
+
 // middleware for all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -32,48 +35,21 @@ var index = require('./routes/index');
 // handle http requests
 app.get('/', index);
 
-
-var clientMemberList = []; // an array of members that will be passed to the client
-
+// listen for socket activity
 io.sockets.on('connection', function (socket) {
-    console.log('A user connected. Listening for them to join a game...');
-
     socket.on('join game', function (data) {
-        // add this user to the lobby and let everyone else know
-        socket.join('lobby');
-        clientMemberList.push({
-            name: data.username,
-            id: socket.id
-        });
+        var members = lobby.join(io, socket, data);
 
-        // if the lobby is now full, start a game and clear the lobby
-        if (io.sockets.clients('lobby').length === 4) {
-            console.log('The lobby is now full. Starting a game.');
-            io.sockets.in('lobby').emit('start game', {});
-        } else {
-            // otherwise, let everyone know the status of the lobby
-            io.sockets.in('lobby').emit('lobby changed', {
-                added: {name: data.username, id: socket.id},
-                members: clientMemberList
-            });
+        if (members.length === 4) {
+            // start the game
+            // clear the lobby
         }
     });
 
     socket.on('disconnect', function () {
-        var i, len;
-
-        // remove the user from the lobby if they have joined
-        // no need to `.leave()` the room, but we should update the clientMemberList
-        for (i = 0, len = clientMemberList.length; i < len; i += 1) {
-            if (clientMemberList[i].id === socket.id) {
-                clientMemberList.splice(i, 1);
-                break; // assume there's only one instance of the client in the array. right?
-            }
-        }
-
-        io.sockets.in('lobby').emit('lobby changed', {
-            removed: {id: socket.id},
-            members: clientMemberList
-        })
+        // TODO: check here to see which room(s) the socket was a member of
+        // currently we push an update to everyone connected to the lobby,
+        // even if the disconnecting member wasn't part of the lobby
+        lobby.exit(io, socket);
     });
 });
