@@ -38,9 +38,9 @@ app.get('/', index);
 // listen for socket activity
 io.sockets.on('connection', function (socket) {
     socket.on('join game', function (data) {
-        var members = lobby.join(io, socket, data);
+        lobby.join(io, socket, data);
 
-        if (members.length === 4) {
+        if (lobby.members.length === 4) {
             // start the game
             // clear the lobby
         }
