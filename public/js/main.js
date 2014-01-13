@@ -17,7 +17,6 @@ require(['modules/socket', 'modules/lobby', 'modules/notify'], function (sio, lo
 
     // handle generic incoming messages with the notification module
     socket.on('message', function (data) {
-        data.type = data.type || 'info'; // default to "info" if no "type" is provided
         notify.message(data);
     });
 });

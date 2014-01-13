@@ -31,6 +31,7 @@ define(['jquery', 'bootstrap'], function ($) {
 
     return {
         message: function (data) {
+            data.type = data.type || 'info'; // default to "info" if no "type" is provided
             createNotification(data.type, data.title, data.message);
         },
         info: function (data) {
