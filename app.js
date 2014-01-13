@@ -6,7 +6,8 @@ var express = require('express'),
     io = require('socket.io').listen(server);
 
 // import rook-specific modules
-var lobby = require('./modules/lobby');
+var lobby = require('./modules/lobby'),
+    game = require('./modules/game')
 
 // middleware for all environments
 app.set('port', process.env.PORT || 3000);
@@ -41,7 +42,7 @@ io.sockets.on('connection', function (socket) {
         lobby.join(io, socket, data);
 
         if (lobby.members.length === 4) {
-            // start the game
+            game.create(io);
             // clear the lobby
         }
     });
