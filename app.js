@@ -44,9 +44,13 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        // TODO: check here to see which room(s) the socket was a member of
-        // currently we push an update to everyone connected to the lobby,
-        // even if the disconnecting member wasn't part of the lobby
-        lobby.exit(io, socket);
+        var rooms = io.sockets.manager.roomClients[socket.id];
+
+        if (rooms['/lobby']) {
+            lobby.exit(io, socket);
+        } else if (Object.keys(rooms).length > 1) {
+            // if they user was in more than 1 room (the default: "")
+            // TODO: handle their disconnection
+        }
     });
 });
