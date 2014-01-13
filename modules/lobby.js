@@ -48,7 +48,8 @@ lobby.exit = function (io, socket) {
     return lobby;
 };
 
-// remove anyone from the lobby who is in a game
+// THIS FUNCTION IS NOT USED
+// I'm leaving it here in case I find a good use for it.
 lobby.clear = function (io) {
     io.sockets.clients('lobby').forEach(function (member) {
         // These members have to be in at least two rooms, "lobby" and "" (default).
