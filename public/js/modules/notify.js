@@ -30,6 +30,9 @@ define(['jquery', 'bootstrap'], function ($) {
     }
 
     return {
+        message: function (data) {
+            createNotification(data.type, data.title, data.message);
+        },
         info: function (data) {
             createNotification('info', data.title, data.message);
         },

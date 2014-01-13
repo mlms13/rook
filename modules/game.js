@@ -11,7 +11,8 @@ module.exports.create = function (io) {
     // and send them a message
     members.forEach(function (member) {
         member.join(game.id).emit('message', {
-            text: 'A game is about to begin!'
+            type: 'success',
+            message: 'A game is about to begin!'
         });
     });
 }

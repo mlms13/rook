@@ -9,6 +9,15 @@ require.config({
     }
 });
 
-require(['jquery', 'modules/lobby'], function ($, lobby) {
+require(['modules/socket', 'modules/lobby', 'modules/notify'], function (sio, lobby, notify) {
+    var socket = sio.socket;
+
+    // kick things off by creating the lobby interface
     lobby.create();
+
+    // handle generic incoming messages with the notification module
+    socket.on('message', function (data) {
+        data.type = data.type || 'info'; // default to "info" if no "type" is provided
+        notify.message(data);
+    });
 });
