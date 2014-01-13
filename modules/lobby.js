@@ -48,4 +48,17 @@ lobby.exit = function (io, socket) {
     return lobby;
 };
 
+// remove anyone from the lobby who is in a game
+lobby.clear = function (io) {
+    io.sockets.clients('lobby').forEach(function (member) {
+        // These members have to be in at least two rooms, "lobby" and "" (default).
+        // If they're in more than that, they must be in a game,
+        // so remove them from the lobby.
+
+        if (Object.keys(io.sockets.manager.roomClients[member.id]).length > 2) {
+            member.leave('lobby');
+        }
+    });
+};
+
 module.exports = lobby;

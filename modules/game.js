@@ -3,7 +3,7 @@ var Game = function (members) {
     this.members = members;
 };
 
-module.exports.create = function (io) {
+module.exports.create = function (io, callback) {
     var members = io.sockets.clients('lobby'),
         game = new Game(members);
 
@@ -15,4 +15,7 @@ module.exports.create = function (io) {
             message: 'A game is about to begin!'
         });
     });
+
+    // call the callback (which should clear the lobby)
+    callback(io);
 }

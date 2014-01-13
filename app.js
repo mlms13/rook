@@ -40,11 +40,7 @@ app.get('/', index);
 io.sockets.on('connection', function (socket) {
     socket.on('join game', function (data) {
         lobby.join(io, socket, data);
-
-        if (lobby.members.length === 4) {
-            game.create(io);
-            // clear the lobby
-        }
+        lobby.members.length > 1 && game.create(io, lobby.clear);
     });
 
     socket.on('disconnect', function () {
