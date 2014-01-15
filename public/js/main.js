@@ -19,4 +19,11 @@ require(['modules/socket', 'modules/lobby', 'modules/notify'], function (sio, lo
     socket.on('message', function (data) {
         notify.message(data);
     });
+
+    // handle the starting of a game
+    socket.on('start game', function (data) {
+        // TODO: remove the lobby interface
+        // then make the box bigger
+        // and add labels for the positions of the players
+    });
 });

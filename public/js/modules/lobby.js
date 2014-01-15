@@ -45,11 +45,6 @@ define(['jquery', 'modules/socket', 'modules/notify'], function ($, sio, notify)
         });
 
         socket.on('lobby changed', lobby.update);
-
-        // handle the dealing of cards
-        socket.on('start game', function (data) {
-            notify.success({message: 'The room is full, and a game is about to begin.'});
-        });
     };
 
     lobby.join = function () {
