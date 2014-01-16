@@ -44,4 +44,20 @@ Deck.prototype.shuffle = function () {
     return this;
 };
 
+Deck.prototype.deal = function () {
+    var copy = this.cards.slice(),
+        dealt = {hands: [], kitty: []};
+
+    // split our copy of the cards into four hands and a kitty
+    while (copy.length > 0) {
+        if (copy.length >= 10) {
+            dealt.hands.push(copy.splice(0,10));
+        } else {
+            dealt.kitty = copy.splice(0, copy.length);
+        }
+    }
+
+    return dealt;
+};
+
 module.exports = Deck;

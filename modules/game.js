@@ -9,6 +9,7 @@ var Game = function (members) {
 module.exports.create = function (io, callback) {
     var members = io.sockets.clients('lobby'),
         game = new Game(members),
+        cards = game.deck.shuffle().deal(),
         clientMembers = members.map(function (member) {
             return member.id;
         });
@@ -21,6 +22,5 @@ module.exports.create = function (io, callback) {
         });
     });
 
-    game.deck.shuffle();
-    console.log(game.deck);
+    console.log(cards);
 };
