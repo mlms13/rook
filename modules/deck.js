@@ -30,4 +30,18 @@ var Deck = function () {
     }
 };
 
+Deck.prototype.shuffle = function () {
+    var i, r, len, temp;
+
+    console.log('There are this many cards in the deck:', this.cards.length);
+
+    for (i = 0, len = this.cards.length; i < len; i ++) {
+        r = Math.floor(Math.random() * len);
+        temp = this.cards[i];
+        this.cards[i] = this.cards[r];
+        this.cards[r] = temp;
+    }
+    return this;
+};
+
 module.exports = Deck;

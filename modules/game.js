@@ -21,6 +21,6 @@ module.exports.create = function (io, callback) {
         });
     });
 
-    console.log('Here is a random card from the deck...');
-    console.log(game.deck.cards[8]);
-}
+    game.deck.shuffle();
+    console.log(game.deck);
+};
