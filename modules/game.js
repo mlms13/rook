@@ -1,6 +1,9 @@
+var Deck = require('./deck.js');
+
 var Game = function (members) {
     this.id = Date.now().toString(36);
     this.members = members;
+    this.deck = new Deck();
 };
 
 module.exports.create = function (io, callback) {
@@ -17,4 +20,7 @@ module.exports.create = function (io, callback) {
             members: clientMembers
         });
     });
+
+    console.log('Here is a random card from the deck...');
+    console.log(game.deck.cards[8]);
 }
