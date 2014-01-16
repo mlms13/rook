@@ -21,7 +21,7 @@ var Deck = function () {
                      { power: 6, points: 0 },
                      { power: 5, points: 5 }];
 
-    this.cards = [];
+    this.cards = [new Card('rook', 20, 10.5, 'rook')];
 
     for (i = 0; i < suits.length; i ++) {
         for (j = 0; j < cardTypes.length; j++) {
