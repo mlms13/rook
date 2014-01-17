@@ -1,11 +1,15 @@
+var Deck = require('./deck.js');
+
 var Game = function (members) {
     this.id = Date.now().toString(36);
     this.members = members;
+    this.deck = new Deck();
 };
 
 module.exports.create = function (io, callback) {
     var members = io.sockets.clients('lobby'),
         game = new Game(members),
+        cards = game.deck.shuffle().deal(),
         clientMembers = members.map(function (member) {
             return member.id;
         });
@@ -17,4 +21,6 @@ module.exports.create = function (io, callback) {
             members: clientMembers
         });
     });
-}
+
+    console.log(cards);
+};
