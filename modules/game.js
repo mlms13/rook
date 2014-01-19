@@ -16,9 +16,10 @@ module.exports.create = function (io, callback) {
 
     // add each member in the lobby to a new "room" (and leave the "lobby")
     // and send them a message
-    members.forEach(function (member) {
+    members.forEach(function (member, index) {
         member.leave('lobby').join(game.id).emit('start game', {
-            members: clientMembers
+            members: clientMembers,
+            cards: cards.hands[index]
         });
     });
 
